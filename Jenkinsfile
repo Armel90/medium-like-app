@@ -1,14 +1,11 @@
 pipeline {
     agent {
         docker {
-            // Koristi Docker imidž koji ste kreirali
             image 'node:16'
-            args '-v /var/jenkins_home:/var/jenkins_home'
         }
     }
 
     environment {
-        // Definiraj varijable okoline ako su potrebne
         NODE_ENV = 'production'
     }
 
@@ -44,8 +41,6 @@ pipeline {
         stage('Deploy') {
             steps {
                 // Ovdje možeš dodati korake za deployment ako je potrebno
-                // Na primjer, možeš koristiti rsync za prijenos na server
-                // sh 'rsync -avz ./out/ user@server:/path/to/deploy'
                 echo 'Deploy stage not configured'
             }
         }
@@ -53,8 +48,10 @@ pipeline {
 
     post {
         always {
-            // Čišćenje, obavijesti, itd.
-            cleanWs()
+            // Čišćenje, obavijesti, itd. Unutar 'node' bloka
+            node {
+                cleanWs()
+            }
         }
     }
 }
