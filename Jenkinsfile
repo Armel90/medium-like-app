@@ -9,8 +9,8 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                // Kloniraj repozitorij
-                git 'https://github.com/Armel90/medium-like-app.git'
+                // Kloniraj repozitorij iz specifične grane
+                git branch: 'main', url: 'https://github.com/Armel90/medium-like-app.git'
             }
         }
 
