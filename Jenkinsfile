@@ -48,10 +48,8 @@ pipeline {
 
     post {
         always {
-            // Čišćenje, obavijesti, itd. Unutar 'node' bloka
-            node {
-                cleanWs()
-            }
+            // Čišćenje, obavijesti, itd.
+            cleanWs()
         }
     }
 }
