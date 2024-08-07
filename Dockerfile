@@ -1,4 +1,3 @@
-# Koristi Node.js 16 kao osnovni image
 FROM node:16
 
 # Postavi radni direktorijum
@@ -8,7 +7,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Instaliraj zavisnosti
-RUN npm install
+RUN npm install --unsafe-perm=true --allow-root
 
 # Kopiraj ostatak aplikacije u radni direktorijum
 COPY . .
