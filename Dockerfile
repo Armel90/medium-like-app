@@ -1,23 +1,23 @@
-# Koristite Node.js 16 sliku kao osnovu
+# Koristi Node.js 16 kao osnovni image
 FROM node:16
 
-# Postavite radni direktorijum
+# Postavi radni direktorijum
 WORKDIR /app
 
-# Kopirajte package.json i package-lock.json
+# Kopiraj package.json i package-lock.json
 COPY package*.json ./
 
-# Promenite vlasništvo nad /root/.npm direktorijumom
-RUN chown -R $(id -u):$(id -g) /root/.npm
-
-# Instalirajte zavisnosti
+# Instaliraj zavisnosti
 RUN npm install
 
-# Kopirajte ostatak aplikacije
+# Kopiraj ostatak aplikacije u radni direktorijum
 COPY . .
 
-# Izložite port koji vaša aplikacija koristi
-EXPOSE 3000
+# Izgradi aplikaciju za produkciju
+RUN npm run build
 
-# Pokrenite aplikaciju
+# Postavi komandnu koja će se pokrenuti kada se container pokrene
 CMD ["npm", "start"]
+
+# Otvori port 3000
+EXPOSE 3000
