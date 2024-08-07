@@ -1,5 +1,11 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            // Koristi Docker imidž koji ste kreirali
+            image 'node:16'
+            args '-v /var/jenkins_home:/var/jenkins_home'
+        }
+    }
 
     environment {
         // Definiraj varijable okoline ako su potrebne
@@ -9,7 +15,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                // Kloniraj repozitorij iz specifične grane
+                // Kloniraj repozitorij
                 git branch: 'main', url: 'https://github.com/Armel90/medium-like-app.git'
             }
         }
