@@ -1,20 +1,23 @@
-# Koristi službeni Node.js imidž kao osnovu
+# Koristite Node.js 16 sliku kao osnovu
 FROM node:16
 
-# Postavi radni direktorij
-WORKDIR /usr/src/app
+# Postavite radni direktorijum
+WORKDIR /app
 
-# Kopiraj package.json i package-lock.json
+# Kopirajte package.json i package-lock.json
 COPY package*.json ./
 
-# Instaliraj npm pakete
+# Promenite vlasništvo nad /root/.npm direktorijumom
+RUN chown -R $(id -u):$(id -g) /root/.npm
+
+# Instalirajte zavisnosti
 RUN npm install
 
-# Kopiraj ostatak aplikacije
+# Kopirajte ostatak aplikacije
 COPY . .
 
-# Izgradi aplikaciju
-RUN npm run build
+# Izložite port koji vaša aplikacija koristi
+EXPOSE 3000
 
-# Pokreni aplikaciju
-CMD [ "npm", "start" ]
+# Pokrenite aplikaciju
+CMD ["npm", "start"]
