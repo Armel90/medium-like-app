@@ -14,7 +14,7 @@
     "react-dom": "18.2.0",
     "react-hook-form": "^7.41.5",
     "react-portable-text": "^0.5.1",
-    "sanity/cli": "<latest_version>"
+    "@sanity/cli": "latest"
   },
   "devDependencies": {
     "@types/node": "^18.11.3",
