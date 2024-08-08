@@ -10,9 +10,6 @@ COPY package*.json ./
 # Instaliraj zavisnosti
 RUN npm install --unsafe-perm=true --all
 
-# Instaliraj dodatni modul 'sanity/cli'
-RUN npm install sanity/cli
-
 # Kopiraj ostatak aplikacije u radni direktorij
 COPY . .
 
@@ -21,6 +18,9 @@ RUN npm run build
 
 # Postavi ENV varijablu za port (promijeni 3000 ako je port tvoje aplikacije drugačiji)
 ENV PORT=3000
+
+# Izloži port aplikacije
+EXPOSE 3000
 
 # Postavi komandnu koja će se pokrenuti kada se kontejner pokrene
 CMD ["npm", "start"]
