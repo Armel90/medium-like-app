@@ -1,22 +1,26 @@
+# Koristi Node.js 16 kao bazni image
 FROM node:16
 
-# Postavi radni direktorijum
+# Postavi radni direktorij unutar kontejnera
 WORKDIR /app
 
-# Kopiraj package.json i package-lock.json
+# Kopiraj package.json i package-lock.json u radni direktorij
 COPY package*.json ./
 
 # Instaliraj zavisnosti
-RUN npm install --unsafe-perm=true --allow-root
+RUN npm install --unsafe-perm=true --all
 
-# Kopiraj ostatak aplikacije u radni direktorijum
+# Instaliraj dodatni modul 'sanity/cli'
+RUN npm install sanity/cli
+
+# Kopiraj ostatak aplikacije u radni direktorij
 COPY . .
 
 # Izgradi aplikaciju za produkciju
 RUN npm run build
 
-# Postavi komandnu koja će se pokrenuti kada se container pokrene
-CMD ["npm", "start"]
+# Postavi ENV varijablu za port (promijeni 3000 ako je port tvoje aplikacije drugačiji)
+ENV PORT=3000
 
-# Otvori port 3000
-EXPOSE 3000
+# Postavi komandnu koja će se pokrenuti kada se kontejner pokrene
+CMD ["npm", "start"]
